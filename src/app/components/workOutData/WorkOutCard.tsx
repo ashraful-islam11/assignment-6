@@ -4,14 +4,17 @@ import Image from 'next/image';
 import { FaFireFlameCurved, FaRegStar } from 'react-icons/fa6';
 import { FiClock } from 'react-icons/fi';
 import MscleGroups from './mscleGroups';
+import Link from 'next/link';
 
    interface IWorkOutCardType {
     data : IWorkOutType;
    }
 const WorkOutCard = ( {data} : IWorkOutCardType) => {
 
-      const {image,equipment, name, duration,caloriesBurned, rating, muscleGroups} = data ;
+      const {image,equipment, name, duration,caloriesBurned, rating, muscleGroups,id} = data ;
     return (
+         <section>
+        <Link href={`workOut/${id}`}>
          <div className="w-full max-w-sm overflow-hidden rounded-xl border border-[#292D35] bg-[#15171D] transition duration-300 hover:-translate-y-1 hover:border-[#3A3F49]">
       
       {/* Workout Image */}
@@ -77,7 +80,10 @@ const WorkOutCard = ( {data} : IWorkOutCardType) => {
 
         </div>
       </div>
-    </div>
+          </div>
+        </Link>
+
+           </section>
     );
 };
 
