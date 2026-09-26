@@ -45,8 +45,7 @@ const Banner = () => {
         className="
           max-w-xl text-sm leading-6 text-[#9CA3AF]
           sm:text-base
-        "
-      >
+        " >
         FitLog is a dark, no-nonsense gym companion: pick a lift, lock it
         into today's plan, and watch the week's work add up.
       </p>
