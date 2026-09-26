@@ -7,7 +7,7 @@ import NavLogo from '@/assets/logo.png'
 const NavBar = () => {
   return (
     <nav className="border-b border-zinc-800 bg-[#0d0e10]">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto py-6 flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
         {/* eita amar nav logo :  */}
         <Link href="/"
@@ -18,7 +18,7 @@ const NavBar = () => {
             className="h-5 w-5 object-contain"
           />
 
-          <span>FITLOG</span>
+          <span className="font-serif "> FITLOG</span>
         </Link>
 
         {/* Navigation Links */}
@@ -46,7 +46,7 @@ const NavBar = () => {
             href="/plan"
             className="flex items-center gap-1.5 text-zinc-300"
           >
-            <span>Plan</span>
+            <span className="text-[#D1D5DB] ">Plan</span>
 
             <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#ccff00] px-1 text-[9px] font-bold text-black">
               0
@@ -58,7 +58,7 @@ const NavBar = () => {
             href="/saved"
             className="flex items-center gap-1.5 text-zinc-400"
           >
-            <span>Saved</span>
+            <span className="text-[#9CA3AF] ">Saved</span>
 
             <span className="flex h-4 min-w-4 items-center justify-center rounded-full border border-zinc-600 px-1 text-[9px] text-zinc-400">
               0

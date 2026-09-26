@@ -1,3 +1,12 @@
+ /* google font :  */
+
+
 @import "tailwindcss";
 @plugin "daisyui";
 
+@theme {
+  --font-sans : 
+  var(--font-inter);
+  --font-serif : 
+  var(--font-oswald)
+}
