@@ -24,7 +24,7 @@ const NavBar = () => {
         {/* Navigation Links */}
         <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-1">
           <Link
-            href="/workouts"
+            href={'/'}
             className="rounded-full bg-[#18230b] px-4 py-2 text-[11px] font-medium text-[#ccff00]"
           >
             Workout
