@@ -3,6 +3,7 @@ import { Inter, Oswald} from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/shared/NavBar";
 import Footer from "./components/shared/Footer";
+import Provider, { WorkoutProvider } from "./context/Provider";
 
 
 
@@ -28,10 +29,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className=" font-sans min-h-full flex flex-col bg-[#0d0e10]">
 
+       <WorkoutProvider>
+
+
         <NavBar></NavBar>
         {children}
 
         <Footer></Footer>
+
+       </WorkoutProvider>
+    
 
 
         

@@ -1,6 +1,5 @@
 import IWorkOutType from '@/app/types/type';
 import Image from 'next/image';
-import React from 'react';
 import { BiSolidCalendarPlus } from 'react-icons/bi';
 import { MdBookmarkBorder } from 'react-icons/md';
 
@@ -20,6 +19,7 @@ const WorkOutDetailsPage = async ({params} : IParamsType  ) => {
 
 
       const { image,name, description, muscleGroups,equipment,difficulty, sets, reps, duration, caloriesBurned, rating, instructions } = data ;
+    //   console.log( 'masels ', muscleGroups);
 
     return (
         <section className="container mx-auto px-4 py-6 sm:px-6 lg:px-8">

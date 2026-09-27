@@ -31,7 +31,7 @@ const NavBar = () => {
           </Link>
 
           <Link
-            href="/my-plan"
+            href={'/myPlan'}
             className="rounded-full px-4 py-2 text-[11px] font-medium text-zinc-400 transition hover:text-white"
           >
             My Plan
@@ -49,7 +49,7 @@ const NavBar = () => {
             <span className="text-[#D1D5DB] ">Plan</span>
 
             <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#ccff00] px-1 text-[9px] font-bold text-black">
-              0
+             0
             </span>
           </Link>
 
