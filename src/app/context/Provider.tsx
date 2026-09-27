@@ -2,73 +2,72 @@
 "use client";
 
 import { createContext, ReactNode, useContext, useState } from "react";
+import IWorkOutType from "@/app/types/type";
 
-interface IWorkout {
-  id: number;
-  name: string;
-  image: string;
-  category: string[];
-  equipment: string;
-  duration: number;
-  calories: number;
-  rating: number;
-  difficulty: string;
-  sets: number;
-  reps: string;
-  description: string;
-  instructions: string[];
+interface IWorkoutContextType {
+  plan: IWorkOutType[];
+  saved: IWorkOutType[];
+
+  addToPlan: (workout: IWorkOutType) => void;
+  saveForLater: (workout: IWorkOutType) => void;
+
+  removeFromPlan: (workoutId: number) => void;
+  removeFromSaved: (workoutId: number) => void;
 }
 
-interface IWorkoutContext {
-  plan: IWorkout[];
-  saved: IWorkout[];
+const WorkoutContext = createContext<IWorkoutContextType | null>(null);
 
-  addToPlan: (workout: IWorkout) => void;
-  saveForLater: (workout: IWorkout) => void;
+export const WorkoutProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
+  const [plan, setPlan] = useState<IWorkOutType[]>([]);
+  const [saved, setSaved] = useState<IWorkOutType[]>([]);
 
-  removeFromPlan: (id: number) => void;
-  removeFromSaved: (id: number) => void;
-}
-
-const WorkoutContext = createContext<IWorkoutContext | null>(null);
-
-export const WorkoutProvider = ({ children }: { children: ReactNode }) => {
-  const [plan, setPlan] = useState<IWorkout[]>([]);
-  const [saved, setSaved] = useState<IWorkout[]>([]);
-
-  // Add workout to Today's Plan
-  const addToPlan = (workout: IWorkout) => {
-    const alreadyAdded = plan.some((item) => item.id === workout.id);
+  const addToPlan = (workout: IWorkOutType) => {
+    const alreadyAdded = plan.some(
+      (item) => item.id === workout.id
+    );
 
     if (alreadyAdded) {
       return;
     }
 
-    setPlan((previousPlan) => [...previousPlan, workout]);
+    setPlan((previousPlan) => [
+      ...previousPlan,
+      workout,
+    ]);
   };
 
-  // Add workout to Saved
-  const saveForLater = (workout: IWorkout) => {
-    const alreadySaved = saved.some((item) => item.id === workout.id);
+  const saveForLater = (workout: IWorkOutType) => {
+    const alreadySaved = saved.some(
+      (item) => item.id === workout.id
+    );
 
     if (alreadySaved) {
       return;
     }
 
-    setSaved((previousSaved) => [...previousSaved, workout]);
+    setSaved((previousSaved) => [
+      ...previousSaved,
+      workout,
+    ]);
   };
 
-  // Remove workout from Today's Plan
-  const removeFromPlan = (id: number) => {
+  const removeFromPlan = (workoutId: number) => {
     setPlan((previousPlan) =>
-      previousPlan.filter((item) => item.id !== id)
+      previousPlan.filter(
+        (item) => item.id !== workoutId
+      )
     );
   };
 
-  // Remove workout from Saved
-  const removeFromSaved = (id: number) => {
+  const removeFromSaved = (workoutId: number) => {
     setSaved((previousSaved) =>
-      previousSaved.filter((item) => item.id !== id)
+      previousSaved.filter(
+        (item) => item.id !== workoutId
+      )
     );
   };
 
@@ -92,9 +91,10 @@ export const useWorkout = () => {
   const context = useContext(WorkoutContext);
 
   if (!context) {
-    throw new Error("useWorkout must be used inside WorkoutProvider");
+    throw new Error(
+      "useWorkout must be used inside WorkoutProvider"
+    );
   }
 
   return context;
 };
-
