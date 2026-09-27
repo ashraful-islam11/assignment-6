@@ -49,7 +49,7 @@ const NavBar = () => {
             href={'/myPlan'}
             className="flex items-center gap-1.5 text-zinc-300"
           >
-            <span className="text-[#D1D5DB] ">Plan</span>
+            <span className="hidden text-[#D1D5DB] sm:inline">Plan</span>
 
             <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#ccff00] px-1 text-[9px] font-bold text-black">
              {plan.length}
