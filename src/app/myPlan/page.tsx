@@ -14,9 +14,13 @@ const MyPlanPage = () => {
     saved,
     removeFromPlan,
     removeFromSaved,
+    clearPlan,
+    clearSaved,
   } = useWorkout();
 
-  const [activeTab, setActiveTab] = useState<"plan" | "saved">("plan");
+  const [activeTab, setActiveTab] = useState<
+    "plan" | "saved"
+  >("plan");
 
   // Current tab's workouts
   const currentWorkouts: IWorkOutType[] =
@@ -35,7 +39,7 @@ const MyPlanPage = () => {
     0
   );
 
-  // Remove workout
+  // Remove one workout
   const handleRemove = (workoutId: number) => {
     if (activeTab === "plan") {
       removeFromPlan(workoutId);
@@ -44,9 +48,17 @@ const MyPlanPage = () => {
     }
   };
 
+  // Mark all workouts in the active tab as done
+  const handleMarkAsDone = () => {
+    if (activeTab === "plan") {
+      clearPlan();
+    } else {
+      clearSaved();
+    }
+  };
+
   return (
     <section className="container mx-auto px-7 py-10">
-
       {/* My Plan Heading */}
       <div className="pb-6">
         <h2 className="mb-2 font-serif text-3xl font-bold text-[#ffffff]">
@@ -60,7 +72,6 @@ const MyPlanPage = () => {
 
       {/* My Plan Stats */}
       <div className="stats mb-6 w-full rounded-xl border border-[#232732] bg-[#13161D] shadow">
-
         <div className="stat">
           <div className="stat-title text-[#8A92A0]">
             Exercises
@@ -90,12 +101,10 @@ const MyPlanPage = () => {
             {totalCalories}
           </div>
         </div>
-
       </div>
 
       {/* Tabs */}
       <div className="mb-6 flex w-fit gap-2 rounded-xl bg-[#13161D] p-1">
-
         <button
           onClick={() => setActiveTab("plan")}
           className={`rounded-lg px-4 py-2 text-sm font-semibold transition ${
@@ -117,87 +126,145 @@ const MyPlanPage = () => {
         >
           Saved ({saved.length})
         </button>
-
       </div>
 
       {/* Workout List */}
       {currentWorkouts.length > 0 ? (
         <div className="space-y-4">
-
           {currentWorkouts.map((workout) => (
             <div
               key={workout.id}
-              className="relative flex flex-col gap-4 rounded-xl border border-[#232732] bg-[#13161D] p-4 transition hover:border-[#CCFF00]/40 sm:flex-row sm:items-center"
+              className="
+                flex
+                flex-col
+                gap-5
+                rounded-xl
+                border
+                border-[#232732]
+                bg-[#13161D]
+                p-4
+                transition
+                hover:border-[#CCFF00]/40
+                sm:flex-row
+                sm:items-center
+              "
             >
-
-              {/* Workout Image */}
-              <div className="relative h-40 w-full shrink-0 overflow-hidden rounded-lg sm:h-28 sm:w-40">
-                <Image
-                  src={workout.image}
-                  alt={workout.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-
-              {/* Workout Information */}
-              <div className="min-w-0 flex-1">
-
-                <h3 className="text-lg font-bold uppercase text-white">
-                  {workout.name}
-                </h3>
-
-                <p className="mt-1 text-xs text-[#8A92A0]">
-                  {workout.equipment}
-                </p>
-
-                <div className="mt-3 flex flex-wrap gap-3 text-xs text-[#A8AFBB]">
-                  <span>{workout.duration} min</span>
-                  <span>•</span>
-                  <span>{workout.caloriesBurned} kcal</span>
-                  <span>•</span>
-                  <span>★ {workout.rating}</span>
+              {/* LEFT SIDE - Image + Information */}
+              <div className="flex min-w-0 flex-1 items-center gap-4">
+                {/* Workout Image */}
+                <div className="relative h-28 w-40 shrink-0 overflow-hidden rounded-lg">
+                  <Image
+                    src={workout.image}
+                    alt={workout.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
 
-                {/* Actions */}
-                <div className="mt-4 flex flex-wrap gap-2">
+                {/* Workout Information */}
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-lg font-bold uppercase text-white">
+                    {workout.name}
+                  </h3>
 
+                  <p className="mt-1 text-xs text-[#8A92A0]">
+                    {workout.equipment}
+                  </p>
+
+                  <div className="mt-3 flex flex-wrap gap-3 text-xs text-[#A8AFBB]">
+                    <span>
+                      {workout.duration} min
+                    </span>
+
+                    <span>•</span>
+
+                    <span>
+                      {workout.caloriesBurned} kcal
+                    </span>
+
+                    <span>•</span>
+
+                    <span>
+                      ★ {workout.rating}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT SIDE - X + Actions */}
+              <div className="flex shrink-0 flex-col sm:ml-auto ">
+                {/* X BUTTON */}
+                <button
+                  onClick={() => handleRemove(workout.id)}
+                  className="
+                    ml-auto
+                    mb-2
+                    flex
+                    h-8
+                    w-8
+                    items-center
+                    justify-center
+                    rounded-full
+                    border
+                    border-[#30353E]
+                    text-sm
+                    text-[#8A92A0]
+                    transition
+                    hover:border-red-500
+                    hover:text-red-500
+                  "
+                  aria-label={`Remove ${workout.name}`}
+                  
+                >
+                  ×
+                </button>
+
+                {/* BUTTONS - INLINE */}
+                <div className="flex flex-row gap-2">
                   <Link
                     href={`/workOut/${workout.id}`}
-                    className="rounded-md border border-[#30353E] px-3 py-2 text-xs font-semibold text-white transition hover:border-[#CCFF00] hover:text-[#CCFF00]"
+                    className="
+                      rounded-md
+                      border
+                      border-[#30353E]
+                      px-3
+                      py-2
+                      text-center
+                      text-xs
+                      font-semibold
+                      text-white
+                      transition
+                      hover:border-[#CCFF00]
+                      hover:text-[#CCFF00]
+                    "
                   >
                     View Details
                   </Link>
 
-                  {activeTab === "plan" && (
-                    <button
-                      className="rounded-md bg-[#CCFF00] px-3 py-2 text-xs font-bold text-black transition hover:bg-[#b8e600]"
-                    >
-                      ✓ Mark as Done
-                    </button>
-                  )}
-
+                  <button
+                    onClick={handleMarkAsDone}
+                    className="
+                      rounded-md
+                      bg-[#CCFF00]
+                      px-3
+                      py-2
+                      text-xs
+                      font-bold
+                      text-black
+                      transition
+                      hover:bg-[#b8e600]
+                    "
+                  >
+                    ✓ Mark as Done
+                  </button>
                 </div>
               </div>
-
-              {/* Remove Button */}
-              <button
-                onClick={() => handleRemove(workout.id)}
-                className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full border border-[#30353E] text-sm text-[#8A92A0] transition hover:border-red-500 hover:text-red-500"
-                aria-label={`Remove ${workout.name}`}
-              >
-                ×
-              </button>
-
             </div>
           ))}
-
         </div>
       ) : (
-
         /* Empty State */
         <div className="rounded-xl border border-dashed border-[#30353E] bg-[#13161D] px-6 py-16 text-center">
-
           <h3 className="text-xl font-bold text-white">
             NOTHING HERE YET
           </h3>
@@ -210,14 +277,24 @@ const MyPlanPage = () => {
 
           <Link
             href="/workOut"
-            className="mt-6 inline-block rounded-md bg-[#CCFF00] px-5 py-2.5 text-xs font-bold text-black transition hover:bg-[#b8e600]"
+            className="
+              mt-6
+              inline-block
+              rounded-md
+              bg-[#CCFF00]
+              px-5
+              py-2.5
+              text-xs
+              font-bold
+              text-black
+              transition
+              hover:bg-[#b8e600]
+            "
           >
             GO TO WORKOUTS
           </Link>
-
         </div>
       )}
-
     </section>
   );
 };

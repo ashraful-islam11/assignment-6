@@ -3,8 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import NavLogo from '@/assets/logo.png'
+import { useWorkout } from "@/app/context/Provider";
 
 const NavBar = () => {
+
+  const { plan, saved } = useWorkout();
   return (
     <nav className="border-b border-zinc-800 bg-[#0d0e10]">
       <div className="mx-auto py-6 flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -49,7 +52,7 @@ const NavBar = () => {
             <span className="text-[#D1D5DB] ">Plan</span>
 
             <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#ccff00] px-1 text-[9px] font-bold text-black">
-             0
+             {plan.length}
             </span>
           </Link>
 
@@ -60,8 +63,8 @@ const NavBar = () => {
           >
             <span className="text-[#9CA3AF] ">Saved</span>
 
-            <span className="flex h-4 min-w-4 items-center justify-center rounded-full border border-zinc-600 px-1 text-[9px] text-zinc-400">
-              0
+            <span className="flex h-4 min-w-4 items-center justify-center rounded-full border border-zinc-600 px-1 text-[9px] text-zinc-400 ">
+              {saved.length}
             </span>
           </Link>
 
