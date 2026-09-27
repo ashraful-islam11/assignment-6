@@ -46,7 +46,7 @@ const NavBar = () => {
 
           {/* Plan */}
           <Link
-            href="/plan"
+            href={'/myPlan'}
             className="flex items-center gap-1.5 text-zinc-300"
           >
             <span className="text-[#D1D5DB] ">Plan</span>
@@ -58,7 +58,7 @@ const NavBar = () => {
 
           {/* Saved */}
           <Link
-            href="/saved"
+            href={'/myPlan'}
             className="flex items-center gap-1.5 text-zinc-400"
           >
             <span className="text-[#9CA3AF] ">Saved</span>

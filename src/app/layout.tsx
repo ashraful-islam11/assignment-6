@@ -37,7 +37,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
 
         <Footer></Footer>
-        <ToastContainer />
+
+        
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+        toastClassName="!text-xs !px-3 !py-2 !min-h-0 !w-auto !max-w-[260px] sm:!max-w-sm"
+        className="!top-3 !right-3 sm:!top-4 sm:!right-6"
+      />
+
+
        </WorkoutProvider>
     
 
