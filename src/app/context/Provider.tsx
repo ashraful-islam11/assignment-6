@@ -1,24 +1,25 @@
+
 "use client";
 
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+} from "react";
+
+import { toast } from "react-toastify";
 
 import IWorkOutType from "@/app/types/type";
 
 interface IWorkoutContextType {
   plan: IWorkOutType[];
-
   saved: IWorkOutType[];
-
   addToPlan: (workout: IWorkOutType) => void;
-
   saveForLater: (workout: IWorkOutType) => void;
-
   removeFromPlan: (workoutId: number) => void;
-
   removeFromSaved: (workoutId: number) => void;
-
   clearPlan: () => void;
-
   clearSaved: () => void;
 }
 
@@ -30,7 +31,6 @@ export const WorkoutProvider = ({
   children: ReactNode;
 }) => {
   const [plan, setPlan] = useState<IWorkOutType[]>([]);
-
   const [saved, setSaved] = useState<IWorkOutType[]>([]);
 
   // Add workout to Today's Plan
@@ -40,6 +40,7 @@ export const WorkoutProvider = ({
     );
 
     if (alreadyAdded) {
+      toast.error("Already added to today's plan.");
       return;
     }
 
@@ -47,6 +48,8 @@ export const WorkoutProvider = ({
       ...previousPlan,
       workout,
     ]);
+
+    toast.success("Workout added to today's plan.");
   };
 
   // Save workout for later
@@ -56,6 +59,7 @@ export const WorkoutProvider = ({
     );
 
     if (alreadySaved) {
+      toast.error("Already saved.");
       return;
     }
 
@@ -63,6 +67,8 @@ export const WorkoutProvider = ({
       ...previousSaved,
       workout,
     ]);
+
+    toast.success("Workout saved for later.");
   };
 
   // Remove one workout from Today's Plan
@@ -72,6 +78,8 @@ export const WorkoutProvider = ({
         (item) => item.id !== workoutId
       )
     );
+
+    toast.success("Workout removed.");
   };
 
   // Remove one workout from Saved
@@ -81,18 +89,22 @@ export const WorkoutProvider = ({
         (item) => item.id !== workoutId
       )
     );
+
+    toast.success("Workout removed.");
   };
 
   // Mark Today's Plan as Done
-  // This will clear all workouts from Today's Plan
   const clearPlan = () => {
     setPlan([]);
+
+    toast.success("Workout plan all removed.");
   };
 
   // Mark Saved as Done
-  // This will clear all workouts from Saved
   const clearSaved = () => {
     setSaved([]);
+
+    toast.success(" All saved workout removed.");
   };
 
   return (
@@ -124,3 +136,4 @@ export const useWorkout = () => {
 
   return context;
 };
+

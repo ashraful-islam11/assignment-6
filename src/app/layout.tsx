@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "./components/shared/NavBar";
 import Footer from "./components/shared/Footer";
 import Provider, { WorkoutProvider } from "./context/Provider";
+import { ToastContainer } from "react-toastify";
 
 
 
@@ -36,7 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
 
         <Footer></Footer>
-
+        <ToastContainer />
        </WorkoutProvider>
     
 
